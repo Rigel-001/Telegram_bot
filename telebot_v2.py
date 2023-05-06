@@ -57,40 +57,41 @@ def analisarsent(texto):
 
 
 # Programa principal
-try:
-    @bot.message_handler(func=lambda x: True)
-    def outputing(message):
-        out = dict()
-        out['user'] = str(message.from_user)
-        out['date'] = str(message.date)
-        out['text'] = str(message.text)
-        out['entities'] = str(message.entities)
-        out['message_id'] = str(message.message_id)
-        out['chat_id'] = str(message.chat.id)
-        output = open("output.txt", "at+")
-        output.write(str(f'{out}\n'))
-        output.close()
-        sleep(1)
-        if verificar(message.text) is True:
-            texto = message.text.lower()
-            bg = analisartxt(texto)
-            match bg:
-                case 'b':
-                    bot.reply_to(message, "cala a boca porra.")
-                    sleep(5)
-                    bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-                case 'g':
-                    negativo = analisarsent(texto)
-                    if negativo is True:
+while True:
+    try:
+        @bot.message_handler(func=lambda x: True)
+        def outputing(message):
+            out = dict()
+            out['user'] = str(message.from_user)
+            out['date'] = str(message.date)
+            out['text'] = str(message.text)
+            out['entities'] = str(message.entities)
+            out['message_id'] = str(message.message_id)
+            out['chat_id'] = str(message.chat.id)
+            output = open("output.txt", "at+")
+            output.write(str(f'{out}\n'))
+            output.close()
+            sleep(1)
+            if verificar(message.text) is True:
+                texto = message.text.lower()
+                bg = analisartxt(texto)
+                match bg:
+                    case 'b':
                         bot.reply_to(message, "cala a boca porra.")
                         sleep(5)
                         bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-                    else:
-                        bot.reply_to(message, "cuidado mano.")
-                        
-                    bot.polling()
-except:
-    pass
+                    case 'g':
+                        negativo = analisarsent(texto)
+                        if negativo is True:
+                            bot.reply_to(message, "cala a boca porra.")
+                            sleep(5)
+                            bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+                        else:
+                            bot.reply_to(message, "cuidado mano.")
+
+                        bot.polling()
+    except:
+        pass
 
 # Enviar mensagens como bot no geral do EBDV:
 # bot.send_message(chat_id=-1001885652312, text="coisas")
