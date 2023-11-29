@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: <encoding name> -*-
+# -*- coding: UTF-8 -*-
 
 
 import telebot
